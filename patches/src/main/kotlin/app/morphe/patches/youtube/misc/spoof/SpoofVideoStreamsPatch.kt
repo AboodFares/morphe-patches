@@ -31,7 +31,7 @@ val spoofVideoStreamsPatch = spoofVideoStreamsPatch(
     fixMediaSessionFeatureFlag = {
         is_20_39_or_greater
     },
-    fixShortsLoadingFeatureFlag = {
+    fixReelItemWatchResponseFeatureFlag = {
         is_20_47_or_greater
     },
 

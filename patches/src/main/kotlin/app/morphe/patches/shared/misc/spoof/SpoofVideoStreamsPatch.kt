@@ -73,7 +73,7 @@ internal fun spoofVideoStreamsPatch(
     fixMediaFetchHotConfigAlternative: BytecodePatchBuilder.() -> Boolean = { false },
     fixParsePlaybackResponseFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
     fixMediaSessionFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
-    fixShortsLoadingFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
+    fixReelItemWatchResponseFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
     block: BytecodePatchBuilder.() -> Unit,
     executeBlock: BytecodePatchContext.() -> Unit = {},
 ) = bytecodePatch(
@@ -398,7 +398,7 @@ internal fun spoofVideoStreamsPatch(
             }
         }
 
-        if (fixShortsLoadingFeatureFlag()) {
+        if (fixReelItemWatchResponseFeatureFlag()) {
             ReelItemWatchResponseFeatureFlagFingerprint.let {
                 it.method.insertLiteralOverride(
                     it.instructionMatches.first().index,

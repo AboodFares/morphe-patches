@@ -31,7 +31,6 @@ import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionOrThrow
 import app.morphe.util.indexOfFirstInstructionReversedOrThrow
 import app.morphe.util.insertLiteralOverride
-import app.morphe.util.returnLate
 import app.morphe.util.setExtensionIsPatchIncluded
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -400,7 +399,12 @@ internal fun spoofVideoStreamsPatch(
         }
 
         if (fixShortsLoadingFeatureFlag()) {
-            ShortsVideoLoadingFeatureFlagFingerprint.method.returnLate(false)
+            ReelItemWatchResponseFeatureFlagFingerprint.let {
+                it.method.insertLiteralOverride(
+                    it.instructionMatches.first().index,
+                    "$EXTENSION_CLASS->useReelItemWatchResponseFeatureFlag(Z)Z"
+                )
+            }
         }
 
         // endregion

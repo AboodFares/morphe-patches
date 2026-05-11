@@ -2,8 +2,18 @@ package app.morphe.patches.youtube.misc.fix.verticalscroll
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.OpcodesFilter
+import app.morphe.patcher.literal
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
+
+internal object FeedScrollStutterFeatureFlagFingerprint : Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "Z",
+    parameters = listOf(),
+    filters = listOf(
+        literal(45782902L)
+    )
+)
 
 internal object CanScrollVerticallyFingerprint : Fingerprint(
     definingClass = "Landroidx/swiperefreshlayout/widget/SwipeRefreshLayout;",

@@ -31,6 +31,7 @@ import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionOrThrow
 import app.morphe.util.indexOfFirstInstructionReversedOrThrow
 import app.morphe.util.insertLiteralOverride
+import app.morphe.util.returnLate
 import app.morphe.util.setExtensionIsPatchIncluded
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
@@ -73,6 +74,7 @@ internal fun spoofVideoStreamsPatch(
     fixMediaFetchHotConfigAlternative: BytecodePatchBuilder.() -> Boolean = { false },
     fixParsePlaybackResponseFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
     fixMediaSessionFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
+    fixShortsLoadingFeatureFlag: BytecodePatchBuilder.() -> Boolean = { false },
     block: BytecodePatchBuilder.() -> Unit,
     executeBlock: BytecodePatchContext.() -> Unit = {},
 ) = bytecodePatch(
@@ -395,6 +397,10 @@ internal fun spoofVideoStreamsPatch(
                     "$EXTENSION_CLASS->useMediaSessionFeatureFlag(Z)Z"
                 )
             }
+        }
+
+        if (fixShortsLoadingFeatureFlag()) {
+            ShortsVideoLoadingFeatureFlagFingerprint.method.returnLate(false)
         }
 
         // endregion

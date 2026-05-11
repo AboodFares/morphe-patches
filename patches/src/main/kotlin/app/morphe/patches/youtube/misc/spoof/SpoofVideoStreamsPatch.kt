@@ -8,6 +8,7 @@ import app.morphe.patches.shared.misc.settings.preference.TextPreference
 import app.morphe.patches.shared.misc.spoof.spoofVideoStreamsPatch
 import app.morphe.patches.youtube.misc.extension.sharedExtensionPatch
 import app.morphe.patches.youtube.misc.playservice.is_20_39_or_greater
+import app.morphe.patches.youtube.misc.playservice.is_20_47_or_greater
 import app.morphe.patches.youtube.misc.playservice.versionCheckPatch
 import app.morphe.patches.youtube.misc.settings.PreferenceScreen
 import app.morphe.patches.youtube.misc.settings.settingsPatch
@@ -29,7 +30,10 @@ val spoofVideoStreamsPatch = spoofVideoStreamsPatch(
     },
     fixMediaSessionFeatureFlag = {
         is_20_39_or_greater
-     },
+    },
+    fixShortsLoadingFeatureFlag = {
+        is_20_47_or_greater
+    },
 
     block = {
         compatibleWith(COMPATIBILITY_YOUTUBE)

@@ -186,6 +186,17 @@ internal object MediaSessionFeatureFlagFingerprint : Fingerprint(
     )
 )
 
+// Feature flag that causes Shorts content to freeze and fail to load when scrolling.
+// Flag does not seem to affect Shorts if spoofing is off.
+internal object ShortsVideoLoadingFeatureFlagFingerprint : Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
+    returnType = "Z",
+    parameters = listOf(),
+    filters = listOf(
+        literal(45638126L)
+    )
+)
+
 internal fun indexOfNewUrlRequestBuilderInstruction(method: Method) = method.indexOfFirstInstruction {
     val reference = getReference<MethodReference>()
     opcode == Opcode.INVOKE_VIRTUAL && reference?.definingClass == "Lorg/chromium/net/CronetEngine;"
